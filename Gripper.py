@@ -25,10 +25,17 @@ GPIO.setup(speedleft,GPIO.OUT)
 GPIO.setup(speedright,GPIO.OUT)
 
 
-GPIO.output(in1,GPIO.LOW)
-GPIO.output(in2,GPIO.LOW)
-p=GPIO.PWM(en,1000)
-p.start(25)
+GPIO.output(left1,GPIO.LOW)
+GPIO.output(left2,GPIO.LOW)
+GPIO.output(right1,GPIO.LOW)
+GPIO.output(right2,GPIO.LOW)
+
+righten=GPIO.PWM(speedright,1000)
+righten.start(25)
+leften=GPIO.PWM(speedleft,1000)
+leften.start(25)
+
+
 print("\n")
 print("The default speed & direction of motor is LOW & Forward.....")
 print("r-run s-stop f-forward b-backward l-low h-high e-exit")
@@ -57,38 +64,40 @@ while(1):
 
 
     elif x=='s':
-        print("stop")
+         print("stop")
          GPIO.output(left1,GPIO.LOW)
          GPIO.output(left2,GPIO.LOW)
          GPIO.output(right1,GPIO.LOW)
          GPIO.output(right2,GPIO.LOW)
-        x='z'
+         x='z'
 
     elif x=='f':
-        print("forward")
+         print("forward")
          GPIO.output(left1,GPIO.HIGH)
          GPIO.output(left2,GPIO.LOW)
          GPIO.output(right1,GPIO.HIGH)
          GPIO.output(right2,GPIO.LOW)
-        x='z'
+         x='z'
 
     elif x=='b':
-        print("backward")
+         print("backward")
          GPIO.output(left1,GPIO.LOW)
          GPIO.output(left2,GPIO.HIGH)
          GPIO.output(right1,GPIO.LOW)
          GPIO.output(right2,GPIO.HIGH)
-        go_forward=0
-        x='z'
+         go_forward=0
+         x='z'
 
     elif x=='l':
         print("low")
-        p.ChangeDutyCycle(25)
+        leften.ChangeDutyCycle(25)
+        righten.ChangeDutyCycle(25)
         x='z'
 
     elif x=='h':
         print("high")
-        p.ChangeDutyCycle(75)
+        leften.ChangeDutyCycle(75)
+        righten.ChangeDutyCycle(75)
         x='z'
      
     
