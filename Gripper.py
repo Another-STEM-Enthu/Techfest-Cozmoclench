@@ -1,6 +1,8 @@
 import RPi.GPIO as GPIO          
 from time import sleep
 
+#check all pins once before testing/running anything!!!!!!!!!!!!!!!!!!
+
 
 
 left1 = 23        #left motor direction
@@ -16,7 +18,7 @@ speedright = 8     #right motor speed
 go_forward = 1
 
 
-GPIO.setmode(GPIO.BCM)
+GPIO.setmode(GPIO.BOARD)
 GPIO.setup(left1,GPIO.OUT)
 GPIO.setup(left2,GPIO.OUT)
 GPIO.setup(right1,GPIO.OUT)
@@ -30,9 +32,9 @@ GPIO.output(left2,GPIO.LOW)
 GPIO.output(right1,GPIO.LOW)
 GPIO.output(right2,GPIO.LOW)
 
-righten=GPIO.PWM(speedright,1000)
+righten=GPIO.PWM(speedright,50)
 righten.start(25)
-leften=GPIO.PWM(speedleft,1000)
+leften=GPIO.PWM(speedleft,50)
 leften.start(25)
 
 
