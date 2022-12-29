@@ -1,4 +1,4 @@
-import RPi.GPIO as GPIO          
+import RPi.GPIO as GPIO
 from time import sleep
 from flask import Flask
 from flask import render_template
@@ -7,11 +7,11 @@ from flask import render_template
 
 app= Flask(__name__)
 
-left1 = 23        #left motor direction
-left2 = 24        #left motor direction
+left1 = 24        #left motor direction
+left2 = 23        #left motor direction
 
-right1 = 16        #right motor direction
-right2 = 15        #right motor direction
+right1 = 15        #right motor direction
+right2 = 16        #right motor direction
 
 speedleft = 35      #left motor speed
 speedright = 12     #right motor speed
@@ -30,21 +30,24 @@ GPIO.setup(speedright,GPIO.OUT)
 
 
 righten=GPIO.PWM(speedright,50)
-righten.start(25)
+righten.start(15)
 leften=GPIO.PWM(speedleft,50)
-leften.start(25)
+leften.start(15)
 print("\n")
 print("begin")
-print("\n")    
+print("\n")
 
 
 
 #remember to change name of webpage in return render!!!!
 #remember to change the IP down below!!!!
 
-
 @app.route('/')
 def index():
+    GPIO.output(left1,GPIO.LOW)
+    GPIO.output(left2,GPIO.LOW)
+    GPIO.output(right1,GPIO.LOW)
+    GPIO.output(right2, GPIO.LOW)
     return render_template('Control_Interface.html')
 
 @app.route('/fwd')
@@ -64,6 +67,8 @@ def bckwd():
     GPIO.output(right1,GPIO.LOW)
     GPIO.output(right2,GPIO.HIGH)
     return render_template('Control_Interface.html')
+
+
 
 @app.route('/left')
 def left():
@@ -85,11 +90,28 @@ def right():
 
 @app.route('/makefast')
 def makefast():
-    print('makefast')
-    leften.ChangeDutyCycle(75)
-    righten.ChangeDutyCycle(75)
+    print("stop")
+    GPIO.output(left1,GPIO.LOW)
+    GPIO.output(left2,GPIO.LOW)
+    GPIO.output(right1,GPIO.LOW)
+    GPIO.output(right2, GPIO.LOW)
     return render_template('Control_Interface.html')
+
+@app.route('/gup')
+def gup():
+    print('high speed!!!!!')
+    leften.ChangeDutyCycle(80)
+    righten.ChangeDutyCycle(80)
+    return render_template('Control_Interface.html')
+
+@app.route('/gdown')
+def gdown():
+    print('low speed')
+    leften.ChangeDutyCycle(15)
+    righten.ChangeDutyCycle(15)
+    return render_template('Control_Interface.html')
+
 
 if __name__=="__main__":
     print("Start")
-    app.run(debug=True, host='192.168.137.154')  #enter IP of the PI here
+    app.run(debug=True, host='192.168.137.68')  #enter IP of the PI here

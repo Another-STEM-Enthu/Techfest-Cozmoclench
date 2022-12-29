@@ -1,0 +1,113 @@
+import RPi.GPIO as GPIO
+from time import sleep
+from flask import Flask
+from flask import render_template
+
+#check all pins once before testing/running anything!!!!!!!!!!!!!!!!!!
+
+app= Flask(__name__)
+
+
+
+grip = 32                    #for the grip servo!
+
+
+
+
+
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(grip,GPIO.OUT)
+
+
+
+gripen=GPIO.PWM(grip,50)
+
+gripen.start(0)
+
+print("\n")
+print("begin")
+print("\n")
+
+
+for i in range(1,21):
+   gripen.ChangeDutyCycle(2.5)
+   sleep(0.5)
+   gripen.ChangeDutyCycle(5.83)
+   sleep(0.5)
+
+
+gripen.stop()
+
+
+--------------------------------------
+
+import RPi.GPIO as GPIO
+from time import sleep
+from flask import Flask
+from flask import render_template
+
+#check all pins once before testing/running anything!!!!!!!!!!!!!!!!!!
+
+app= Flask(__name__)
+
+
+
+left = 35                    #for the servo!
+right = 12                    #for the servo!
+
+
+
+
+
+
+GPIO.setmode(GPIO.BOARD)
+GPIO.setup(left,GPIO.OUT)
+GPIO.setup(right,GPIO.OUT)
+
+
+
+leften=GPIO.PWM(left,50)
+righten=GPIO.PWM(right,50)
+
+leften.start(7.5)
+righten.start(7.5)
+
+#sleep(1)
+
+#leften.ChangeDutyCycle(7.5)
+#righten.ChangeDutyCycle(7.5)
+
+sleep(1.5)
+
+leften.ChangeDutyCycle(12.5)
+righten.ChangeDutyCycle(2.5)
+sleep(3)
+
+leften.ChangeDutyCycle(7.5)
+righten.ChangeDutyCycle(7.5)
+
+
+leften=GPIO.PWM(left,50)
+righten=GPIO.PWM(right,50)
+
+leften.start(7.5)
+righten.start(7.5)
+
+#sleep(1)
+
+#leften.ChangeDutyCycle(7.5)
+#righten.ChangeDutyCycle(7.5)
+
+sleep(1.5)
+
+leften.ChangeDutyCycle(12.5)
+righten.ChangeDutyCycle(2.5)
+sleep(3)
+
+leften.ChangeDutyCycle(7.5)
+righten.ChangeDutyCycle(7.5)
+sleep(1.5)
+
+leften.stop()
+righten.stop()
